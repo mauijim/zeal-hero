@@ -1,0 +1,237 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
+
+<link rel="import" href="../zeal-styles/zeal-typography.html">
+<link rel="import" href="../zeal-styles/zeal-color.html">
+<link rel="import" href="../zeal-styles/zeal-theme.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <zeal-hero></zeal-hero>
+
+@group Seed Elements
+@element zeal-hero
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="zeal-hero">
+
+  <template>
+    <style is="custom-style">
+      :host {
+
+        --zeal-hero-color-background: var(--zeal-color-night, #252525);
+        --zeal-hero-color-title: var(--zeal-color-white, #fff);
+        --zeal-hero-color-subtitle: var(--zeal-color-white, #fff);
+
+        display: block;
+        box-sizing: border-box;
+        text-align: center;
+        color: var(--zeal-hero-color-title, #fff);
+
+        @apply(--zeal-hero);
+
+        --zeal-hero-subtitle: {
+          @apply(--zeal-font-body);
+          color: var(--zeal-hero-color-subtitle, #fff);
+          text-shadow: 0 0 3.75rem rgba(0,0,0,.65);
+          text-transform: uppercase;
+          font-weight: bold;
+          margin:0;
+        };
+
+        --zeal-hero-title: {
+          margin:0;
+          color: var(--zeal-hero-color-title, #fff);
+          text-shadow: 0 0 3.75rem rgba(0,0,0,.65);
+        }
+
+        --zeal-hero-eyebrow: {
+          margin-bottom: 0;
+        };
+
+        --zeal-hero-icon: {
+
+        };
+
+      }
+
+      .container iron-image{
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--layout-center-justified);
+        width:100%;
+        background-color: var(--zeal-hero-color-background, navy);
+      }
+
+      .container[large-layout] iron-image{
+        min-height:588px;
+      }
+
+      .container .content {
+        padding:2em;
+        @apply(--zeal-hero-content);
+      }
+
+      .container[large-layout] .content {
+        padding:8.75em;
+        @apply(--zeal-hero-content);
+      }
+
+      .container .header {
+        @apply(--zeal-hero-header);
+      }
+
+      .container ::content .icon {
+        @apply(--zeal-hero-icon);
+      }
+
+      .container[small-layout] ::content .title {
+        @apply(--zeal-font-headline-3);
+        @apply(--zeal-hero-title);
+      }
+
+      .container[large-layout] ::content .title {
+        @apply(--zeal-font-headline-1);
+        @apply(--zeal-hero-title);
+      }
+
+      .container[small-layout] ::content .subtitle {
+        font-size: 1.1em;
+        @apply(--zeal-hero-subtitle);
+      }
+
+      .container[large-layout] ::content .subtitle {
+        @apply(--zeal-font-headline-3);
+        @apply(--zeal-hero-subtitle);
+      }
+
+      .container ::content .eyebrow {
+        @apply(--zeal-hero-subtitle);
+      }
+
+      .container ::content p {
+        @apply(--zeal-font-body);
+      };
+
+    </style>
+
+    <iron-media-query query="(min-width: 0)" query-matches="{{small}}"></iron-media-query>
+    <iron-media-query query="(min-width: 640px)" query-matches="{{medium}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1024px)" query-matches="{{large}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1200px)" query-matches="{{xlarge}}"></iron-media-query>
+    <iron-media-query query="(min-width: 1440px)" query-matches="{{xxlarge}}"></iron-media-query>
+
+    <div
+      class="container"
+      small-layout$="{{small}}"
+      medium-layout$="{{medium}}"
+      large-layout$="{{large}}"
+      xlarge-layout$="{{xlarge}}"
+      xxlarge-layout$="{{xxlarge}}">
+      <iron-image src="{{image}}"  position="{{position}}"  sizing="cover" preload fade>
+        <div class="content">
+          <div class="header">
+            <content select=".icon"></content>
+            <content select=".eyebrow"></content>
+            <content select=".title"></content>
+            <content select="h1"></content>
+            <content select=".sub-title"></content>
+            <content select="h2, h3, h4, h5, h6"></content>
+          </div>
+          <content></content>
+          <div class="footer">
+            <content select=".button, .extra"></content>
+          </div>
+        </div>
+      </iron-image>
+    </div>
+
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'zeal-hero',
+
+    properties: {
+      /**
+       * Specifies a background image for the element.
+       */
+      image: {
+        type: String,
+        notify: true,
+        value: 'http://source.unsplash.com/random/'
+      },
+
+      /**
+       * Specifies a background color for the element.
+       */
+      color: {
+        type: String,
+        notify: true,
+        value: 'lightgray'
+      },
+
+    },
+
+    // Element Lifecycle
+
+    ready: function() {
+      // `ready` is called after all elements have been configured, but
+      // propagates bottom-up. This element's children are ready, but parents
+      // are not.
+      //
+      // This is the point where you should make modifications to the DOM (when
+      // necessary), or kick off any processes the element wants to perform.
+    },
+
+    attached: function() {
+      // `attached` fires once the element and its parents have been inserted
+      // into a document.
+      //
+      // This is a good place to perform any work related to your element's
+      // visual state or active behavior (measuring sizes, beginning animations,
+      // loading resources, etc).
+    },
+
+    detached: function() {
+      // The analog to `attached`, `detached` fires when the element has been
+      // removed from a document.
+      //
+      // Use this to clean up anything you did in `attached`.
+    },
+
+    // Element Behavior
+
+    /**
+     * Sometimes it's just nice to say hi.
+     *
+     * @param {string} greeting A positive greeting.
+     * @return {string} The full greeting.
+     */
+    sayHello: function(greeting) {
+      var response = greeting || 'Hello World!';
+      return 'zeal-hero says, ' + response;
+    }
+
+  });
+
+</script>
