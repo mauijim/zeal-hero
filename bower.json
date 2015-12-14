@@ -1,10 +1,10 @@
 {
   "name": "zeal-hero",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Max Leitch <mleitch@zealoptics.com>"
   ],
-  "description": "An element providing a solution to no problem in particular.",
+  "description": "A hero image.",
   "keywords": [
     "web-component",
     "polymer",
@@ -12,7 +12,7 @@
   ],
   "main": "zeal-hero.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/mauijim/zeal-hero.git",
   "ignore": [
     "/.*",
     "/test/"
