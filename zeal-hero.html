@@ -78,6 +78,10 @@ Example:
         background-color: var(--zeal-hero-color-background, navy);
       }
 
+      .container[medium-layout] iron-image{
+        min-height:400px;
+      }
+
       .container[large-layout] iron-image{
         min-height:588px;
       }
@@ -143,7 +147,7 @@ Example:
       large-layout$="{{large}}"
       xlarge-layout$="{{xlarge}}"
       xxlarge-layout$="{{xxlarge}}">
-      <iron-image src="{{image}}"  position="{{position}}"  sizing="cover" preload fade>
+      <iron-image src="{{image}}" position="{{position}}" sizing="cover" preload fade>
         <div class="content">
           <div class="header">
             <content select=".icon"></content>
